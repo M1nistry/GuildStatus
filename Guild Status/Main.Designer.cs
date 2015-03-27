@@ -37,6 +37,17 @@
             this.labelSearch = new System.Windows.Forms.Label();
             this.textBoxSearch = new System.Windows.Forms.TextBox();
             this.dgvDetails = new System.Windows.Forms.DataGridView();
+            this.columnOnline = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.columnRank = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.columnAccount = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.columnName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.columnClass = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.columnLevel = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.columnExperience = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.columnLastOnline = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.columnDead = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.columnId = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.buttonSearch = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgvDetails)).BeginInit();
             this.SuspendLayout();
             // 
@@ -75,6 +86,7 @@
             this.textBoxAccounts.Name = "textBoxAccounts";
             this.textBoxAccounts.Size = new System.Drawing.Size(100, 210);
             this.textBoxAccounts.TabIndex = 3;
+            this.textBoxAccounts.Leave += new System.EventHandler(this.textBoxAccounts_Leave);
             // 
             // labelSearch
             // 
@@ -102,16 +114,113 @@
             this.dgvDetails.BackgroundColor = System.Drawing.SystemColors.Control;
             this.dgvDetails.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.dgvDetails.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvDetails.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.columnOnline,
+            this.columnRank,
+            this.columnAccount,
+            this.columnName,
+            this.columnClass,
+            this.columnLevel,
+            this.columnExperience,
+            this.columnLastOnline,
+            this.columnDead,
+            this.columnId});
             this.dgvDetails.Location = new System.Drawing.Point(121, 31);
             this.dgvDetails.Name = "dgvDetails";
             this.dgvDetails.Size = new System.Drawing.Size(457, 210);
             this.dgvDetails.TabIndex = 6;
+            // 
+            // columnOnline
+            // 
+            this.columnOnline.DataPropertyName = "online";
+            this.columnOnline.HeaderText = "Online";
+            this.columnOnline.Name = "columnOnline";
+            this.columnOnline.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.columnOnline.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            // 
+            // columnRank
+            // 
+            this.columnRank.DataPropertyName = "rank";
+            this.columnRank.HeaderText = "Rank";
+            this.columnRank.MaxInputLength = 40;
+            this.columnRank.Name = "columnRank";
+            // 
+            // columnAccount
+            // 
+            this.columnAccount.DataPropertyName = "account";
+            this.columnAccount.HeaderText = "Account";
+            this.columnAccount.MaxInputLength = 40;
+            this.columnAccount.Name = "columnAccount";
+            // 
+            // columnName
+            // 
+            this.columnName.DataPropertyName = "name";
+            this.columnName.HeaderText = "Name";
+            this.columnName.MaxInputLength = 80;
+            this.columnName.Name = "columnName";
+            // 
+            // columnClass
+            // 
+            this.columnClass.DataPropertyName = "class";
+            this.columnClass.HeaderText = "Class";
+            this.columnClass.Name = "columnClass";
+            // 
+            // columnLevel
+            // 
+            this.columnLevel.DataPropertyName = "level";
+            this.columnLevel.HeaderText = "Level";
+            this.columnLevel.Name = "columnLevel";
+            // 
+            // columnExperience
+            // 
+            this.columnExperience.DataPropertyName = "experience";
+            this.columnExperience.HeaderText = "Experience";
+            this.columnExperience.MaxInputLength = 50;
+            this.columnExperience.Name = "columnExperience";
+            // 
+            // columnLastOnline
+            // 
+            this.columnLastOnline.DataPropertyName = "last_online";
+            this.columnLastOnline.HeaderText = "Last Online";
+            this.columnLastOnline.MaxInputLength = 80;
+            this.columnLastOnline.Name = "columnLastOnline";
+            // 
+            // columnDead
+            // 
+            this.columnDead.DataPropertyName = "dead";
+            this.columnDead.HeaderText = "Dead";
+            this.columnDead.Name = "columnDead";
+            this.columnDead.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.columnDead.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            this.columnDead.Visible = false;
+            // 
+            // columnId
+            // 
+            this.columnId.DataPropertyName = "id";
+            this.columnId.HeaderText = "ID";
+            this.columnId.Name = "columnId";
+            this.columnId.Visible = false;
+            // 
+            // buttonSearch
+            // 
+            this.buttonSearch.FlatAppearance.BorderSize = 0;
+            this.buttonSearch.FlatAppearance.MouseOverBackColor = System.Drawing.SystemColors.ControlDark;
+            this.buttonSearch.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.buttonSearch.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonSearch.Location = new System.Drawing.Point(275, 5);
+            this.buttonSearch.Name = "buttonSearch";
+            this.buttonSearch.Size = new System.Drawing.Size(20, 20);
+            this.buttonSearch.TabIndex = 7;
+            this.buttonSearch.Text = "↻";
+            this.buttonSearch.UseVisualStyleBackColor = true;
+            this.buttonSearch.Click += new System.EventHandler(this.buttonSearch_Click);
             // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(590, 253);
+            this.Controls.Add(this.buttonSearch);
             this.Controls.Add(this.dgvDetails);
             this.Controls.Add(this.textBoxSearch);
             this.Controls.Add(this.labelSearch);
@@ -137,6 +246,17 @@
         private System.Windows.Forms.Label labelSearch;
         private System.Windows.Forms.TextBox textBoxSearch;
         private System.Windows.Forms.DataGridView dgvDetails;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn columnOnline;
+        private System.Windows.Forms.DataGridViewTextBoxColumn columnRank;
+        private System.Windows.Forms.DataGridViewTextBoxColumn columnAccount;
+        private System.Windows.Forms.DataGridViewTextBoxColumn columnName;
+        private System.Windows.Forms.DataGridViewTextBoxColumn columnClass;
+        private System.Windows.Forms.DataGridViewTextBoxColumn columnLevel;
+        private System.Windows.Forms.DataGridViewTextBoxColumn columnExperience;
+        private System.Windows.Forms.DataGridViewTextBoxColumn columnLastOnline;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn columnDead;
+        private System.Windows.Forms.DataGridViewTextBoxColumn columnId;
+        private System.Windows.Forms.Button buttonSearch;
     }
 }
 
