@@ -36,6 +36,7 @@ namespace Guild_Status
             {
                 try
                 {
+                    if (webPage.Contains("No data returned")) return null;
                     var jObject = JsonConvert.DeserializeObject(webPage);
                     return jObject;
                 }
