@@ -7,7 +7,7 @@ Latest release: [Here](https://github.com/M1nistry/GuildStatus/releases/)
 
 Log issues: [Here](https://github.com/M1nistry/GuildStatus/issues)
 
-Reddit thread: [Here](#)
+Reddit thread: [Here](http://www.reddit.com/r/pathofexile/comments/30lni6/release_guild_status_05a/)
 
 Credit to [Trackpete](https://www.reddit.com/user/trackpete) for allowing this data to be easily obtained and presented.
 
