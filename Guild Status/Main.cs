@@ -120,7 +120,7 @@ namespace Guild_Status
             bgwJson.ReportProgress(-1, String.Format("Requesting {0} accounts and character details...", memberList.Count()));
             foreach (var account in memberList)
             {
-                var jObj = JsonHandler.ParseJsonObject(String.Format("http://poe.pwx.me/api/ladder?league={0}&account={1}", textBoxLeague.Text, account));
+                var jObj = JsonHandler.ParseJsonObject(String.Format("http://poe.pwx.me/api/ladder?league={0}&account={1}&short=1", textBoxLeague.Text, account));
                 if (jObj == null)
                 {
                     failCount++;

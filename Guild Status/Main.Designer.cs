@@ -32,6 +32,7 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Main));
             this.labelLeague = new System.Windows.Forms.Label();
             this.toolTip = new System.Windows.Forms.ToolTip(this.components);
+            this.textBoxGuildId = new System.Windows.Forms.TextBox();
             this.textBoxLeague = new System.Windows.Forms.TextBox();
             this.textBoxAccounts = new System.Windows.Forms.TextBox();
             this.labelSearch = new System.Windows.Forms.Label();
@@ -52,16 +53,15 @@
             this.progressBar = new System.Windows.Forms.ProgressBar();
             this.tabControlAccounts = new System.Windows.Forms.TabControl();
             this.tabPageGuild = new System.Windows.Forms.TabPage();
-            this.tabPageAccounts = new System.Windows.Forms.TabPage();
-            this.labelId = new System.Windows.Forms.Label();
-            this.textBoxGuildId = new System.Windows.Forms.TextBox();
-            this.labelGuildName = new System.Windows.Forms.Label();
-            this.labelGuildTag = new System.Windows.Forms.Label();
-            this.labelCreated = new System.Windows.Forms.Label();
+            this.buttonSearchGuild = new System.Windows.Forms.Button();
             this.labelMemberCount = new System.Windows.Forms.Label();
+            this.labelCreated = new System.Windows.Forms.Label();
+            this.labelGuildTag = new System.Windows.Forms.Label();
+            this.labelGuildName = new System.Windows.Forms.Label();
+            this.labelId = new System.Windows.Forms.Label();
+            this.tabPageAccounts = new System.Windows.Forms.TabPage();
             this.bgwGuild = new System.ComponentModel.BackgroundWorker();
             this.buttonExport = new System.Windows.Forms.Button();
-            this.buttonSearchGuild = new System.Windows.Forms.Button();
             this.extendedStatusStrip = new Guild_Status.ExtendedStatusStrip();
             this.listBoxMembers = new Guild_Status.ListBoxScrollbar();
             ((System.ComponentModel.ISupportInitialize)(this.dgvDetails)).BeginInit();
@@ -79,6 +79,17 @@
             this.labelLeague.TabIndex = 0;
             this.labelLeague.Text = "League:";
             this.toolTip.SetToolTip(this.labelLeague, "Specifies the league to query the status of characters on.");
+            // 
+            // textBoxGuildId
+            // 
+            this.textBoxGuildId.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBoxGuildId.Location = new System.Drawing.Point(30, 9);
+            this.textBoxGuildId.Name = "textBoxGuildId";
+            this.textBoxGuildId.Size = new System.Drawing.Size(38, 18);
+            this.textBoxGuildId.TabIndex = 1;
+            this.toolTip.SetToolTip(this.textBoxGuildId, "Press enter to search");
+            this.textBoxGuildId.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBoxGuildId_KeyPress);
+            this.textBoxGuildId.Leave += new System.EventHandler(this.textBoxGuildId_Leave);
             // 
             // textBoxLeague
             // 
@@ -298,16 +309,54 @@
             this.tabPageGuild.Text = "Guild";
             this.tabPageGuild.UseVisualStyleBackColor = true;
             // 
-            // tabPageAccounts
+            // buttonSearchGuild
             // 
-            this.tabPageAccounts.Controls.Add(this.textBoxAccounts);
-            this.tabPageAccounts.Location = new System.Drawing.Point(4, 22);
-            this.tabPageAccounts.Name = "tabPageAccounts";
-            this.tabPageAccounts.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageAccounts.Size = new System.Drawing.Size(107, 281);
-            this.tabPageAccounts.TabIndex = 1;
-            this.tabPageAccounts.Text = "Accounts";
-            this.tabPageAccounts.UseVisualStyleBackColor = true;
+            this.buttonSearchGuild.FlatAppearance.BorderSize = 0;
+            this.buttonSearchGuild.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.buttonSearchGuild.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonSearchGuild.Location = new System.Drawing.Point(71, 8);
+            this.buttonSearchGuild.Name = "buttonSearchGuild";
+            this.buttonSearchGuild.Size = new System.Drawing.Size(27, 20);
+            this.buttonSearchGuild.TabIndex = 12;
+            this.buttonSearchGuild.Text = "→";
+            this.buttonSearchGuild.UseVisualStyleBackColor = true;
+            this.buttonSearchGuild.Click += new System.EventHandler(this.buttonSearchGuild_Click);
+            // 
+            // labelMemberCount
+            // 
+            this.labelMemberCount.AutoSize = true;
+            this.labelMemberCount.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelMemberCount.Location = new System.Drawing.Point(19, 96);
+            this.labelMemberCount.Name = "labelMemberCount";
+            this.labelMemberCount.Size = new System.Drawing.Size(0, 12);
+            this.labelMemberCount.TabIndex = 5;
+            // 
+            // labelCreated
+            // 
+            this.labelCreated.AutoSize = true;
+            this.labelCreated.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelCreated.Location = new System.Drawing.Point(14, 81);
+            this.labelCreated.Name = "labelCreated";
+            this.labelCreated.Size = new System.Drawing.Size(0, 12);
+            this.labelCreated.TabIndex = 4;
+            // 
+            // labelGuildTag
+            // 
+            this.labelGuildTag.AutoSize = true;
+            this.labelGuildTag.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelGuildTag.Location = new System.Drawing.Point(35, 57);
+            this.labelGuildTag.Name = "labelGuildTag";
+            this.labelGuildTag.Size = new System.Drawing.Size(0, 12);
+            this.labelGuildTag.TabIndex = 3;
+            // 
+            // labelGuildName
+            // 
+            this.labelGuildName.AutoSize = true;
+            this.labelGuildName.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelGuildName.Location = new System.Drawing.Point(10, 41);
+            this.labelGuildName.Name = "labelGuildName";
+            this.labelGuildName.Size = new System.Drawing.Size(0, 12);
+            this.labelGuildName.TabIndex = 2;
             // 
             // labelId
             // 
@@ -319,52 +368,16 @@
             this.labelId.TabIndex = 0;
             this.labelId.Text = "ID:";
             // 
-            // textBoxGuildId
+            // tabPageAccounts
             // 
-            this.textBoxGuildId.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBoxGuildId.Location = new System.Drawing.Point(30, 9);
-            this.textBoxGuildId.Name = "textBoxGuildId";
-            this.textBoxGuildId.Size = new System.Drawing.Size(38, 18);
-            this.textBoxGuildId.TabIndex = 1;
-            this.toolTip.SetToolTip(this.textBoxGuildId, "Press enter to search");
-            this.textBoxGuildId.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBoxGuildId_KeyPress);
-            this.textBoxGuildId.Leave += new System.EventHandler(this.textBoxGuildId_Leave);
-            // 
-            // labelGuildName
-            // 
-            this.labelGuildName.AutoSize = true;
-            this.labelGuildName.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelGuildName.Location = new System.Drawing.Point(10, 41);
-            this.labelGuildName.Name = "labelGuildName";
-            this.labelGuildName.Size = new System.Drawing.Size(0, 12);
-            this.labelGuildName.TabIndex = 2;
-            // 
-            // labelGuildTag
-            // 
-            this.labelGuildTag.AutoSize = true;
-            this.labelGuildTag.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelGuildTag.Location = new System.Drawing.Point(35, 57);
-            this.labelGuildTag.Name = "labelGuildTag";
-            this.labelGuildTag.Size = new System.Drawing.Size(0, 12);
-            this.labelGuildTag.TabIndex = 3;
-            // 
-            // labelCreated
-            // 
-            this.labelCreated.AutoSize = true;
-            this.labelCreated.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelCreated.Location = new System.Drawing.Point(14, 81);
-            this.labelCreated.Name = "labelCreated";
-            this.labelCreated.Size = new System.Drawing.Size(0, 12);
-            this.labelCreated.TabIndex = 4;
-            // 
-            // labelMemberCount
-            // 
-            this.labelMemberCount.AutoSize = true;
-            this.labelMemberCount.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelMemberCount.Location = new System.Drawing.Point(19, 96);
-            this.labelMemberCount.Name = "labelMemberCount";
-            this.labelMemberCount.Size = new System.Drawing.Size(0, 12);
-            this.labelMemberCount.TabIndex = 5;
+            this.tabPageAccounts.Controls.Add(this.textBoxAccounts);
+            this.tabPageAccounts.Location = new System.Drawing.Point(4, 22);
+            this.tabPageAccounts.Name = "tabPageAccounts";
+            this.tabPageAccounts.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPageAccounts.Size = new System.Drawing.Size(107, 281);
+            this.tabPageAccounts.TabIndex = 1;
+            this.tabPageAccounts.Text = "Accounts";
+            this.tabPageAccounts.UseVisualStyleBackColor = true;
             // 
             // bgwGuild
             // 
@@ -384,19 +397,6 @@
             this.buttonExport.UseVisualStyleBackColor = true;
             this.buttonExport.Visible = false;
             this.buttonExport.Click += new System.EventHandler(this.buttonExport_Click);
-            // 
-            // buttonSearchGuild
-            // 
-            this.buttonSearchGuild.FlatAppearance.BorderSize = 0;
-            this.buttonSearchGuild.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.buttonSearchGuild.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonSearchGuild.Location = new System.Drawing.Point(71, 8);
-            this.buttonSearchGuild.Name = "buttonSearchGuild";
-            this.buttonSearchGuild.Size = new System.Drawing.Size(27, 20);
-            this.buttonSearchGuild.TabIndex = 12;
-            this.buttonSearchGuild.Text = "→";
-            this.buttonSearchGuild.UseVisualStyleBackColor = true;
-            this.buttonSearchGuild.Click += new System.EventHandler(this.buttonSearchGuild_Click);
             // 
             // extendedStatusStrip
             // 
