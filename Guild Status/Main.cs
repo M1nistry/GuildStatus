@@ -8,7 +8,6 @@ using System.Net;
 using System.Windows.Forms;
 using HtmlAgilityPack;
 using OfficeOpenXml;
-using OfficeOpenXml.FormulaParsing.Excel.Functions.Text;
 using OfficeOpenXml.Table;
 
 namespace Guild_Status
