@@ -8,6 +8,19 @@ namespace Guild_Status
     {
         public bool Timestamps { get; set; }
 
+        public bool Progressbar
+        {
+            get { return progressBar.Visible;  }
+
+            set { progressBar.Visible = value; }
+        }
+
+        public string StatusValue
+        {
+            get { return toolStripStatusLabel.Text; }
+            set { toolStripStatusLabel.Text = value; }
+        }
+
         public ExtendedStatusStrip()
         {
             InitializeComponent();

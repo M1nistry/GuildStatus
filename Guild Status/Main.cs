@@ -23,6 +23,7 @@ namespace Guild_Status
         {
             InitializeComponent();
             dgvDetails.AutoGenerateColumns = true;
+            extendedStatusStrip.AddStatus(@"Welcome to version 0.6a");
             textBoxGuildId.Text = Properties.Settings.Default.guildId;
             textBoxLeague.Text = Properties.Settings.Default.selectedLeague;
         }
@@ -65,11 +66,14 @@ namespace Guild_Status
         private void textBoxAccounts_Leave(object sender, EventArgs e)
         {
             Properties.Settings.Default.Accounts = textBoxAccounts.Text;
+            Properties.Settings.Default.Save();
         }
 
         private void buttonSearch_Click(object sender, EventArgs e)
         {
             _characterList.Clear();
+            _dtCharacters.Rows.Clear();
+            _bindingSource.DataSource = _dtCharacters;
             dgvDetails.DataSource = _bindingSource;
             buttonExport.Visible = false;
             if (textBoxLeague.Text == String.Empty)
@@ -80,6 +84,19 @@ namespace Guild_Status
             if (!bgwJson.IsBusy)
             {
                 var guild = tabControlAccounts.SelectedTab == tabPageGuild;
+                if (guild && listBoxMembers.Items.Count <= 0)
+                {
+                    extendedStatusStrip.AddStatus(@"Guild member list hasn't been populated, please enter an ID and try again.");
+                    return;
+                }
+                if (!guild && !textBoxAccounts.Lines.Any())
+                {
+                    extendedStatusStrip.AddStatus(@"No accounts entered, please enter at least one account to search.");
+                    return;
+                }
+
+                extendedStatusStrip.progressBar.Visible = true;
+                extendedStatusStrip.AddStatus(@"Retrieving guild details and members...");
                 bgwJson.RunWorkerAsync(guild);
             }
         }
@@ -124,6 +141,7 @@ namespace Guild_Status
                 if (jObj == null)
                 {
                     failCount++;
+                    progCount++;
                     continue;
                 }
                 foreach (var entry in jObj)
@@ -159,7 +177,7 @@ namespace Guild_Status
 
         private void bgwJson_ProgressChanged(object sender, System.ComponentModel.ProgressChangedEventArgs e)
         {
-            if (e.ProgressPercentage > 0) progressBar.Value = e.ProgressPercentage;
+            if (e.ProgressPercentage > 0) extendedStatusStrip.progressBar.Value = e.ProgressPercentage;
             if (e.ProgressPercentage == -1 && e.UserState != null)
             {
                 extendedStatusStrip.AddStatus(e.UserState.ToString());
@@ -171,7 +189,7 @@ namespace Guild_Status
         {
             if (e.Error != null) extendedStatusStrip.AddStatus(@"Error occured: " + e.Error.Message);
             UpdateDatagrid();
-            progressBar.Value = 0;
+            extendedStatusStrip.progressBar.Visible = false;
         }
 
         private Guild FetchGuild(string guildId)
@@ -258,6 +276,7 @@ namespace Guild_Status
             labelGuildTag.Text = String.Empty;
             labelCreated.Text = String.Empty;
             labelMemberCount.Text = String.Empty;
+            extendedStatusStrip.progressBar.Visible = true;
             bgwGuild.RunWorkerAsync();
         }
 
@@ -275,15 +294,17 @@ namespace Guild_Status
                 return;
             }
             labelGuildName.Text = guildResult.Name;
+            labelGuildTag.Location = labelGuildName.Height > 12 ? new Point(labelGuildTag.Location.X, labelGuildTag.Location.Y + 10) : new Point(35, 57);
             labelGuildTag.Text = guildResult.Tag.Replace("&lt;", "<").Replace("&gt;", ">");
             labelCreated.Text = guildResult.Created;
             labelMemberCount.Text = @"Members: " + guildResult.TotalMembers;
             listBoxMembers.DataSource = guildResult.Members;
+            extendedStatusStrip.progressBar.Visible = false;
         }
 
         private void bgwGuild_ProgressChanged(object sender, System.ComponentModel.ProgressChangedEventArgs e)
         {
-            if (e.ProgressPercentage > 0) progressBar.Value = e.ProgressPercentage;
+            if (e.ProgressPercentage > 0) extendedStatusStrip.progressBar.Value = e.ProgressPercentage;
             if (e.ProgressPercentage == -1 && e.UserState != null)
             {
                 extendedStatusStrip.AddStatus(e.UserState.ToString());

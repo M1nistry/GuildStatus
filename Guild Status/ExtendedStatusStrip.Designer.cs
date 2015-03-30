@@ -29,10 +29,10 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ExtendedStatusStrip));
             this.statusStrip = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripStatusValue = new System.Windows.Forms.ToolStripStatusLabel();
+            this.progressBar = new System.Windows.Forms.ToolStripProgressBar();
             this.toolStripExpandButton = new System.Windows.Forms.ToolStripSplitButton();
             this.listStatusBox = new System.Windows.Forms.ListBox();
             this.toolTip = new System.Windows.Forms.ToolTip(this.components);
@@ -44,6 +44,7 @@
             this.statusStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripStatusLabel,
             this.toolStripStatusValue,
+            this.progressBar,
             this.toolStripExpandButton});
             this.statusStrip.Location = new System.Drawing.Point(0, 0);
             this.statusStrip.Name = "statusStrip";
@@ -61,15 +62,20 @@
             // 
             this.toolStripStatusValue.AutoSize = false;
             this.toolStripStatusValue.Name = "toolStripStatusValue";
-            this.toolStripStatusValue.Size = new System.Drawing.Size(552, 17);
+            this.toolStripStatusValue.Size = new System.Drawing.Size(471, 17);
             this.toolStripStatusValue.Spring = true;
             this.toolStripStatusValue.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // progressBar
+            // 
+            this.progressBar.AutoSize = false;
+            this.progressBar.Name = "progressBar";
+            this.progressBar.Size = new System.Drawing.Size(110, 16);
             // 
             // toolStripExpandButton
             // 
             this.toolStripExpandButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
             this.toolStripExpandButton.DropDownButtonWidth = 0;
-            //this.toolStripExpandButton.Image = ((System.Drawing.Image)(resources.GetObject("toolStripExpandButton.Image")));
             this.toolStripExpandButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripExpandButton.Name = "toolStripExpandButton";
             this.toolStripExpandButton.Size = new System.Drawing.Size(18, 20);
@@ -78,7 +84,7 @@
             // 
             // listStatusBox
             // 
-            this.listStatusBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+            this.listStatusBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.listStatusBox.BackColor = System.Drawing.SystemColors.ButtonFace;
             this.listStatusBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
@@ -95,8 +101,8 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Transparent;
-            this.Controls.Add(this.listStatusBox);
             this.Controls.Add(this.statusStrip);
+            this.Controls.Add(this.listStatusBox);
             this.Name = "ExtendedStatusStrip";
             this.Size = new System.Drawing.Size(658, 22);
             this.Resize += new System.EventHandler(this.ExtendedStatusStrip_Resize);
@@ -115,5 +121,6 @@
         private System.Windows.Forms.ToolStripSplitButton toolStripExpandButton;
         private System.Windows.Forms.ListBox listStatusBox;
         private System.Windows.Forms.ToolTip toolTip;
+        public System.Windows.Forms.ToolStripProgressBar progressBar;
     }
 }

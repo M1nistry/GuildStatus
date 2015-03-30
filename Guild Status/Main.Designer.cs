@@ -50,7 +50,6 @@
             this.columnId = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.buttonSearch = new System.Windows.Forms.Button();
             this.bgwJson = new System.ComponentModel.BackgroundWorker();
-            this.progressBar = new System.Windows.Forms.ProgressBar();
             this.tabControlAccounts = new System.Windows.Forms.TabControl();
             this.tabPageGuild = new System.Windows.Forms.TabPage();
             this.buttonSearchGuild = new System.Windows.Forms.Button();
@@ -255,7 +254,6 @@
             // buttonSearch
             // 
             this.buttonSearch.FlatAppearance.BorderSize = 0;
-            this.buttonSearch.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonSearch.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.buttonSearch.Location = new System.Drawing.Point(273, 6);
             this.buttonSearch.Name = "buttonSearch";
@@ -272,14 +270,6 @@
             this.bgwJson.DoWork += new System.ComponentModel.DoWorkEventHandler(this.bgwJson_DoWork);
             this.bgwJson.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(this.bgwJson_ProgressChanged);
             this.bgwJson.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.bgwJson_RunWorkerCompleted);
-            // 
-            // progressBar
-            // 
-            this.progressBar.ForeColor = System.Drawing.Color.DarkViolet;
-            this.progressBar.Location = new System.Drawing.Point(619, 333);
-            this.progressBar.Name = "progressBar";
-            this.progressBar.Size = new System.Drawing.Size(118, 10);
-            this.progressBar.TabIndex = 9;
             // 
             // tabControlAccounts
             // 
@@ -312,7 +302,6 @@
             // buttonSearchGuild
             // 
             this.buttonSearchGuild.FlatAppearance.BorderSize = 0;
-            this.buttonSearchGuild.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonSearchGuild.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.buttonSearchGuild.Location = new System.Drawing.Point(71, 8);
             this.buttonSearchGuild.Name = "buttonSearchGuild";
@@ -344,19 +333,22 @@
             // 
             this.labelGuildTag.AutoSize = true;
             this.labelGuildTag.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelGuildTag.Location = new System.Drawing.Point(35, 57);
+            this.labelGuildTag.Location = new System.Drawing.Point(33, 57);
             this.labelGuildTag.Name = "labelGuildTag";
             this.labelGuildTag.Size = new System.Drawing.Size(0, 12);
             this.labelGuildTag.TabIndex = 3;
+            this.labelGuildTag.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // labelGuildName
             // 
             this.labelGuildName.AutoSize = true;
             this.labelGuildName.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.labelGuildName.Location = new System.Drawing.Point(10, 41);
+            this.labelGuildName.MaximumSize = new System.Drawing.Size(90, 0);
             this.labelGuildName.Name = "labelGuildName";
             this.labelGuildName.Size = new System.Drawing.Size(0, 12);
             this.labelGuildName.TabIndex = 2;
+            this.labelGuildName.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // labelId
             // 
@@ -404,7 +396,9 @@
             this.extendedStatusStrip.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.extendedStatusStrip.Location = new System.Drawing.Point(0, 326);
             this.extendedStatusStrip.Name = "extendedStatusStrip";
+            this.extendedStatusStrip.Progressbar = false;
             this.extendedStatusStrip.Size = new System.Drawing.Size(779, 22);
+            this.extendedStatusStrip.StatusValue = "Status:";
             this.extendedStatusStrip.TabIndex = 8;
             this.extendedStatusStrip.Timestamps = false;
             // 
@@ -414,10 +408,11 @@
             this.listBoxMembers.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.listBoxMembers.FormattingEnabled = true;
             this.listBoxMembers.ItemHeight = 12;
-            this.listBoxMembers.Location = new System.Drawing.Point(0, 124);
+            this.listBoxMembers.Location = new System.Drawing.Point(0, 125);
             this.listBoxMembers.Name = "listBoxMembers";
             this.listBoxMembers.ShowScrollbar = true;
             this.listBoxMembers.Size = new System.Drawing.Size(107, 156);
+            this.listBoxMembers.Sorted = true;
             this.listBoxMembers.TabIndex = 11;
             // 
             // Main
@@ -426,7 +421,6 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(779, 348);
             this.Controls.Add(this.buttonExport);
-            this.Controls.Add(this.progressBar);
             this.Controls.Add(this.extendedStatusStrip);
             this.Controls.Add(this.buttonSearch);
             this.Controls.Add(this.dgvDetails);
@@ -471,7 +465,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn columnId;
         private ExtendedStatusStrip extendedStatusStrip;
         private System.ComponentModel.BackgroundWorker bgwJson;
-        private System.Windows.Forms.ProgressBar progressBar;
         private System.Windows.Forms.TabControl tabControlAccounts;
         private System.Windows.Forms.TabPage tabPageGuild;
         private System.Windows.Forms.TabPage tabPageAccounts;
