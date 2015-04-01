@@ -61,12 +61,16 @@
             this.tabPageAccounts = new System.Windows.Forms.TabPage();
             this.bgwGuild = new System.ComponentModel.BackgroundWorker();
             this.buttonExport = new System.Windows.Forms.Button();
+            this.checkedListBoxMembers = new System.Windows.Forms.CheckedListBox();
+            this.contextMenuStripCheckList = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.uncheckAllToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.checkAllToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.extendedStatusStrip = new Guild_Status.ExtendedStatusStrip();
-            this.listBoxMembers = new Guild_Status.ListBoxScrollbar();
             ((System.ComponentModel.ISupportInitialize)(this.dgvDetails)).BeginInit();
             this.tabControlAccounts.SuspendLayout();
             this.tabPageGuild.SuspendLayout();
             this.tabPageAccounts.SuspendLayout();
+            this.contextMenuStripCheckList.SuspendLayout();
             this.SuspendLayout();
             // 
             // labelLeague
@@ -111,7 +115,7 @@
             this.textBoxAccounts.Location = new System.Drawing.Point(3, 3);
             this.textBoxAccounts.Multiline = true;
             this.textBoxAccounts.Name = "textBoxAccounts";
-            this.textBoxAccounts.Size = new System.Drawing.Size(101, 275);
+            this.textBoxAccounts.Size = new System.Drawing.Size(111, 275);
             this.textBoxAccounts.TabIndex = 3;
             this.textBoxAccounts.Leave += new System.EventHandler(this.textBoxAccounts_Leave);
             // 
@@ -155,12 +159,13 @@
             this.columnLastOnline,
             this.columnDead,
             this.columnId});
-            this.dgvDetails.Location = new System.Drawing.Point(121, 31);
+            this.dgvDetails.Location = new System.Drawing.Point(131, 31);
             this.dgvDetails.Name = "dgvDetails";
             this.dgvDetails.ReadOnly = true;
             this.dgvDetails.RowHeadersVisible = false;
-            this.dgvDetails.Size = new System.Drawing.Size(646, 287);
+            this.dgvDetails.Size = new System.Drawing.Size(636, 287);
             this.dgvDetails.TabIndex = 6;
+            this.dgvDetails.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvDetails_CellDoubleClick);
             this.dgvDetails.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.dgvDetails_CellFormatting);
             // 
             // columnOnline
@@ -278,23 +283,23 @@
             this.tabControlAccounts.Location = new System.Drawing.Point(4, 12);
             this.tabControlAccounts.Name = "tabControlAccounts";
             this.tabControlAccounts.SelectedIndex = 0;
-            this.tabControlAccounts.Size = new System.Drawing.Size(115, 307);
+            this.tabControlAccounts.Size = new System.Drawing.Size(125, 307);
             this.tabControlAccounts.TabIndex = 10;
             // 
             // tabPageGuild
             // 
+            this.tabPageGuild.Controls.Add(this.checkedListBoxMembers);
             this.tabPageGuild.Controls.Add(this.buttonSearchGuild);
-            this.tabPageGuild.Controls.Add(this.listBoxMembers);
             this.tabPageGuild.Controls.Add(this.labelMemberCount);
             this.tabPageGuild.Controls.Add(this.labelCreated);
             this.tabPageGuild.Controls.Add(this.labelGuildTag);
-            this.tabPageGuild.Controls.Add(this.labelGuildName);
             this.tabPageGuild.Controls.Add(this.textBoxGuildId);
             this.tabPageGuild.Controls.Add(this.labelId);
+            this.tabPageGuild.Controls.Add(this.labelGuildName);
             this.tabPageGuild.Location = new System.Drawing.Point(4, 22);
             this.tabPageGuild.Name = "tabPageGuild";
             this.tabPageGuild.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageGuild.Size = new System.Drawing.Size(107, 281);
+            this.tabPageGuild.Size = new System.Drawing.Size(117, 281);
             this.tabPageGuild.TabIndex = 0;
             this.tabPageGuild.Text = "Guild";
             this.tabPageGuild.UseVisualStyleBackColor = true;
@@ -307,46 +312,45 @@
             this.buttonSearchGuild.Name = "buttonSearchGuild";
             this.buttonSearchGuild.Size = new System.Drawing.Size(27, 20);
             this.buttonSearchGuild.TabIndex = 12;
-            this.buttonSearchGuild.Text = "→";
+            this.buttonSearchGuild.Text = "✔";
+            this.buttonSearchGuild.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             this.buttonSearchGuild.UseVisualStyleBackColor = true;
             this.buttonSearchGuild.Click += new System.EventHandler(this.buttonSearchGuild_Click);
             // 
             // labelMemberCount
             // 
-            this.labelMemberCount.AutoSize = true;
             this.labelMemberCount.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelMemberCount.Location = new System.Drawing.Point(19, 96);
+            this.labelMemberCount.Location = new System.Drawing.Point(3, 96);
             this.labelMemberCount.Name = "labelMemberCount";
-            this.labelMemberCount.Size = new System.Drawing.Size(0, 12);
+            this.labelMemberCount.Size = new System.Drawing.Size(110, 12);
             this.labelMemberCount.TabIndex = 5;
+            this.labelMemberCount.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // labelCreated
             // 
-            this.labelCreated.AutoSize = true;
             this.labelCreated.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelCreated.Location = new System.Drawing.Point(14, 81);
+            this.labelCreated.Location = new System.Drawing.Point(4, 84);
             this.labelCreated.Name = "labelCreated";
-            this.labelCreated.Size = new System.Drawing.Size(0, 12);
+            this.labelCreated.Size = new System.Drawing.Size(110, 12);
             this.labelCreated.TabIndex = 4;
+            this.labelCreated.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // labelGuildTag
             // 
-            this.labelGuildTag.AutoSize = true;
             this.labelGuildTag.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelGuildTag.Location = new System.Drawing.Point(33, 57);
+            this.labelGuildTag.Location = new System.Drawing.Point(4, 69);
             this.labelGuildTag.Name = "labelGuildTag";
-            this.labelGuildTag.Size = new System.Drawing.Size(0, 12);
+            this.labelGuildTag.Size = new System.Drawing.Size(110, 12);
             this.labelGuildTag.TabIndex = 3;
             this.labelGuildTag.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // labelGuildName
             // 
-            this.labelGuildName.AutoSize = true;
             this.labelGuildName.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelGuildName.Location = new System.Drawing.Point(10, 41);
-            this.labelGuildName.MaximumSize = new System.Drawing.Size(90, 0);
+            this.labelGuildName.Location = new System.Drawing.Point(4, 41);
+            this.labelGuildName.MaximumSize = new System.Drawing.Size(110, 24);
             this.labelGuildName.Name = "labelGuildName";
-            this.labelGuildName.Size = new System.Drawing.Size(0, 12);
+            this.labelGuildName.Size = new System.Drawing.Size(110, 24);
             this.labelGuildName.TabIndex = 2;
             this.labelGuildName.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
@@ -366,7 +370,7 @@
             this.tabPageAccounts.Location = new System.Drawing.Point(4, 22);
             this.tabPageAccounts.Name = "tabPageAccounts";
             this.tabPageAccounts.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageAccounts.Size = new System.Drawing.Size(107, 281);
+            this.tabPageAccounts.Size = new System.Drawing.Size(117, 281);
             this.tabPageAccounts.TabIndex = 1;
             this.tabPageAccounts.Text = "Accounts";
             this.tabPageAccounts.UseVisualStyleBackColor = true;
@@ -380,6 +384,7 @@
             // 
             // buttonExport
             // 
+            this.buttonExport.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonExport.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.buttonExport.Location = new System.Drawing.Point(490, 6);
             this.buttonExport.Name = "buttonExport";
@@ -389,6 +394,43 @@
             this.buttonExport.UseVisualStyleBackColor = true;
             this.buttonExport.Visible = false;
             this.buttonExport.Click += new System.EventHandler(this.buttonExport_Click);
+            // 
+            // checkedListBoxMembers
+            // 
+            this.checkedListBoxMembers.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
+            this.checkedListBoxMembers.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.checkedListBoxMembers.CheckOnClick = true;
+            this.checkedListBoxMembers.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkedListBoxMembers.FormattingEnabled = true;
+            this.checkedListBoxMembers.Location = new System.Drawing.Point(0, 125);
+            this.checkedListBoxMembers.Name = "checkedListBoxMembers";
+            this.checkedListBoxMembers.Size = new System.Drawing.Size(118, 156);
+            this.checkedListBoxMembers.Sorted = true;
+            this.checkedListBoxMembers.TabIndex = 12;
+            this.checkedListBoxMembers.MouseDown += new System.Windows.Forms.MouseEventHandler(this.checkedListBoxMembers_MouseDown);
+            // 
+            // contextMenuStripCheckList
+            // 
+            this.contextMenuStripCheckList.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.uncheckAllToolStripMenuItem,
+            this.checkAllToolStripMenuItem});
+            this.contextMenuStripCheckList.Name = "contextMenuStripCheckList";
+            this.contextMenuStripCheckList.Size = new System.Drawing.Size(138, 48);
+            // 
+            // uncheckAllToolStripMenuItem
+            // 
+            this.uncheckAllToolStripMenuItem.Name = "uncheckAllToolStripMenuItem";
+            this.uncheckAllToolStripMenuItem.Size = new System.Drawing.Size(137, 22);
+            this.uncheckAllToolStripMenuItem.Text = "Uncheck All";
+            this.uncheckAllToolStripMenuItem.Click += new System.EventHandler(this.uncheckAllToolStripMenuItem_Click);
+            // 
+            // checkAllToolStripMenuItem
+            // 
+            this.checkAllToolStripMenuItem.Name = "checkAllToolStripMenuItem";
+            this.checkAllToolStripMenuItem.Size = new System.Drawing.Size(137, 22);
+            this.checkAllToolStripMenuItem.Text = "Check All";
+            this.checkAllToolStripMenuItem.Click += new System.EventHandler(this.checkAllToolStripMenuItem_Click);
             // 
             // extendedStatusStrip
             // 
@@ -401,19 +443,6 @@
             this.extendedStatusStrip.StatusValue = "Status:";
             this.extendedStatusStrip.TabIndex = 8;
             this.extendedStatusStrip.Timestamps = false;
-            // 
-            // listBoxMembers
-            // 
-            this.listBoxMembers.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.listBoxMembers.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.listBoxMembers.FormattingEnabled = true;
-            this.listBoxMembers.ItemHeight = 12;
-            this.listBoxMembers.Location = new System.Drawing.Point(0, 125);
-            this.listBoxMembers.Name = "listBoxMembers";
-            this.listBoxMembers.ShowScrollbar = true;
-            this.listBoxMembers.Size = new System.Drawing.Size(107, 156);
-            this.listBoxMembers.Sorted = true;
-            this.listBoxMembers.TabIndex = 11;
             // 
             // Main
             // 
@@ -438,6 +467,7 @@
             this.tabPageGuild.PerformLayout();
             this.tabPageAccounts.ResumeLayout(false);
             this.tabPageAccounts.PerformLayout();
+            this.contextMenuStripCheckList.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -474,10 +504,13 @@
         private System.Windows.Forms.Label labelMemberCount;
         private System.Windows.Forms.Label labelCreated;
         private System.Windows.Forms.Label labelGuildTag;
-        private ListBoxScrollbar listBoxMembers;
         private System.ComponentModel.BackgroundWorker bgwGuild;
         private System.Windows.Forms.Button buttonExport;
         private System.Windows.Forms.Button buttonSearchGuild;
+        private System.Windows.Forms.CheckedListBox checkedListBoxMembers;
+        private System.Windows.Forms.ContextMenuStrip contextMenuStripCheckList;
+        private System.Windows.Forms.ToolStripMenuItem uncheckAllToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem checkAllToolStripMenuItem;
     }
 }
 
