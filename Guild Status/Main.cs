@@ -24,7 +24,7 @@ namespace Guild_Status
         {
             InitializeComponent();
             dgvDetails.AutoGenerateColumns = true;
-            extendedStatusStrip.AddStatus(@"Welcome to version 0.6a");
+            extendedStatusStrip.AddStatus(@"Welcome to version 0.8a");
             textBoxGuildId.Text = Properties.Settings.Default.guildId;
             textBoxLeague.Text = Properties.Settings.Default.selectedLeague;
         }
@@ -46,6 +46,7 @@ namespace Guild_Status
                 _dtCharacters.Columns.Add("rank", typeof (int));
                 _dtCharacters.Columns.Add("dead", typeof (bool));
                 _dtCharacters.Columns.Add("class", typeof (string));
+                _dtCharacters.Columns.Add("beta", typeof (bool));
 
                 #endregion
             }
@@ -54,7 +55,7 @@ namespace Guild_Status
             {
                 _dtCharacters.Rows.Add(character.Id, character.Name, character.Account, character.Level,
                     character.Experience.ToString("N0"), character.LastOnline, character.Online, character.Rank, character.Dead,
-                    character.Class);
+                    character.Class, character.Beta);
             }
             _bindingSource = new BindingSource
             {
@@ -75,6 +76,7 @@ namespace Guild_Status
         {
             _characterList.Clear();
             _dtCharacters.Rows.Clear();
+            textBoxSearch.Text = string.Empty;
             _bindingSource.DataSource = _dtCharacters;
             dgvDetails.DataSource = _bindingSource;
             buttonExport.Visible = false;
@@ -108,6 +110,11 @@ namespace Guild_Status
             textBoxSearch.Text = CleanSearch(textBoxSearch.Text);
             var filter = textBoxSearch.Text;
             if (filter == String.Empty) _bindingSource.RemoveFilter();
+            if (filter == @"beta")
+            {
+                _bindingSource.Filter = "beta = 'true'";
+                return;
+            }
             _bindingSource.Filter = "account LIKE '%" + filter + "%' OR " +
                                     "name LIKE '%" + filter + "%' OR " +
                                     "class LIKE '%" + filter + "%'";
@@ -131,6 +138,10 @@ namespace Guild_Status
             {
                 dgvDetails.Rows[e.RowIndex].DefaultCellStyle.ForeColor = Color.Silver;
             }
+            if ((bool) dgvDetails["columnBeta", e.RowIndex].Value)
+            {
+                dgvDetails.Rows[e.RowIndex].DefaultCellStyle.BackColor = Color.LimeGreen;
+            }
         }
 
         private void bgwJson_DoWork(object sender, System.ComponentModel.DoWorkEventArgs e)
@@ -141,10 +152,34 @@ namespace Guild_Status
             {
                 guildMembers[i] = checkedListBoxMembers.CheckedItems[i].ToString();
             }
-            var memberList = (bool)e.Argument ?  guildMembers : textBoxAccounts.Lines;
+            var memberList = (bool)e.Argument ? guildMembers : textBoxAccounts.Lines;
+            var betaAccounts = textBoxLeague.Text.ToLower() == "beta" ? JsonHandler.ParseJsonObject("http://icurse.nl/betalist/players.json") : null;
+            var betaList = new List<string>();
+            if (betaAccounts != null) betaList = betaAccounts.ToObject<List<string>>();
             bgwJson.ReportProgress(-1, String.Format("Requesting {0} accounts and character details...", memberList.Count()));
             foreach (var account in memberList)
             {
+                if (textBoxLeague.Text.ToLower() == "beta")
+                {
+                    if (betaList.Count <= 0) return;
+                    var hasBeta = betaList.Contains(account);
+                    var newCharacter = new Character
+                    {
+                        Account = account,
+                        Class = "",
+                        Dead = false,
+                        Experience = 0,
+                        LastOnline = DateTime.Now,
+                        Level = 0,
+                        Name = "",
+                        Id = "",
+                        Online = false,
+                        Rank = 0,
+                        Beta = hasBeta
+                    };
+                    _characterList.Add(newCharacter);
+                    continue;
+                }
                 var jObj = JsonHandler.ParseJsonObject(String.Format("http://poe.pwx.me/api/ladder?league={0}&account={1}&short=1", textBoxLeague.Text, account));
                 if (jObj == null)
                 {

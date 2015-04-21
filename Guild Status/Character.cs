@@ -14,7 +14,7 @@ namespace Guild_Status
         internal int Rank { get; set; }
         internal bool Dead { get; set; }
         internal string Class { get; set; }
-
+        internal bool Beta { get; set; }
 
     }
 }
