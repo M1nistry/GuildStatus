@@ -24,7 +24,7 @@ namespace Guild_Status
         {
             InitializeComponent();
             dgvDetails.AutoGenerateColumns = true;
-            extendedStatusStrip.AddStatus(@"Welcome to version 0.8a");
+            extendedStatusStrip.AddStatus(@"Welcome to version 0.8b");
             textBoxGuildId.Text = Properties.Settings.Default.guildId;
             textBoxLeague.Text = Properties.Settings.Default.selectedLeague;
         }
@@ -248,7 +248,7 @@ namespace Guild_Status
                 bgwGuild.ReportProgress(-1, @"Guild ID mismatch, please make sure that you've entered a valid numerical guild ID.");
                 return null;
             }
-            var webPage = String.Format("http://www.pathofexile.com/guild/profile/{0}", id);
+            var webPage = String.Format("https://www.pathofexile.com/guild/profile/{0}", id);
             bgwGuild.ReportProgress(15);
             var memberList = new List<string>();
             var web = new HtmlWeb();
