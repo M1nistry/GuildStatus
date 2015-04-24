@@ -36,6 +36,7 @@ namespace Guild_Status.JSON
             public string league { get; set; }
             public string rank { get; set; }
             public string accountName { get; set; }
+            public string name { get; set; }
         }
 
     public class RootObject

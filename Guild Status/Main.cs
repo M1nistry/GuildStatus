@@ -7,6 +7,7 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Windows.Forms;
+using Guild_Status.JSON;
 using HtmlAgilityPack;
 using OfficeOpenXml;
 using OfficeOpenXml.Table;
@@ -153,9 +154,9 @@ namespace Guild_Status
                 guildMembers[i] = checkedListBoxMembers.CheckedItems[i].ToString();
             }
             var memberList = (bool)e.Argument ? guildMembers : textBoxAccounts.Lines;
-            var betaAccounts = textBoxLeague.Text.ToLower() == "beta" ? JsonHandler.ParseJsonObject("http://icurse.nl/betalist/players.json") : null;
+            var betaAccounts = textBoxLeague.Text.ToLower() == "beta" ? JsonHandler.ParseJson<JsonBeta.RootObject>("http://icurse.nl/betalist/players.json") : null;
             var betaList = new List<string>();
-            if (betaAccounts != null) betaList = betaAccounts.ToObject<List<string>>();
+            if (betaAccounts != null) betaList = betaAccounts.data.Select(account => account.name).ToList();
             bgwJson.ReportProgress(-1, String.Format("Requesting {0} accounts and character details...", memberList.Count()));
             foreach (var account in memberList)
             {

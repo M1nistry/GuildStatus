@@ -35,7 +35,7 @@
     <ApplicationIcon>64.ico</ApplicationIcon>
   </PropertyGroup>
   <PropertyGroup>
-    <SignAssembly>true</SignAssembly>
+    <SignAssembly>false</SignAssembly>
   </PropertyGroup>
   <PropertyGroup>
     <AssemblyOriginatorKeyFile>GuildStatus.pfx</AssemblyOriginatorKeyFile>
@@ -74,6 +74,7 @@
     </Compile>
     <Compile Include="Guild.cs" />
     <Compile Include="JSON\JsonAccount.cs" />
+    <Compile Include="JSON\JsonBeta.cs" />
     <Compile Include="JSON\JsonHandler.cs" />
     <Compile Include="ListBoxScrollbar.cs">
       <SubType>Component</SubType>
@@ -116,7 +117,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="64.ico" />
-    <Content Include="path_of_exile___icon_by_blagoicons-d6xgjw0.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
